@@ -1,93 +1,93 @@
-const userScore = 0;
-const compScore = 0;
+//Elements for updating UI
 const userScore_span = document.getElementById("user-score");
 const compScore_span = document.getElementById("comp-score");
-const scoreboard_div = document.querySelector(".score-board");
-const result_div = document.querySelector(".result");
+const result_div = document.querySelector(".result p");
 const rock_div = document.getElementById("r");
 const paper_div = document.getElementById("p");
 const scissors_div = document.getElementById("s");
 
+//Initial scores
+let userScore = 0;
+let compScore = 0;
 
-//Generate random number and assign comp. choice using it
-function getCompChoice(){
+//Get comp. choice
+function getCompChoice() {
     const choices = ['r', 'p', 's'];
     const randNum = Math.floor(Math.random() * 3);
-
     return choices[randNum];
 }
 
-
-function convertToWord(letter){
-    if(letter == "r") return "Rock";
-    if(letter == "p") return "Paper";
+//Converts letter to corresponding word
+function convertToWord(letter) {
+    if (letter === "r") return "Rock";
+    if (letter === "p") return "Paper";
     return "Scissors";
 }
 
-
-function win(userChoice, compChoice){
+//Handle winning scenario
+function win(userChoice, compChoice) {
+    const smallUserWord = "user".fontsize(3).sub();
+    const smallCompWord = "comp".fontsize(3).sub();
+    const userChoice_div = document.getElementById(userChoice);
     userScore++;
     userScore_span.innerHTML = userScore;
     compScore_span.innerHTML = compScore;
-    const smallUserWord = "user".fontsize(3).sub();
-    const smallCompWord = "comp".fontsize(3).sub();    
-    result_div.innerHTML = '${convertToWord(userChoice)}${smallUserWord} beats ${convertToWord(compChoice)}${smallCompWord}. You win!';
-    document.getElementById(userChoice).classList.add('green-glow');
+    result_div.innerHTML = `${convertToWord(userChoice)}${smallUserWord} beats ${convertToWord(compChoice)}${smallCompWord}. You win!`;
+    userChoice_div.classList.add('green-glow');
+    setTimeout(() => userChoice_div.classList.remove('green-glow'), 300);
 }
 
-function lose(userChoice, compChoice){
+//Handle losing scenario
+function lose(userChoice, compChoice) {
+    const smallUserWord = "user".fontsize(3).sub();
+    const smallCompWord = "comp".fontsize(3).sub();
+    const userChoice_div = document.getElementById(userChoice);
     compScore++;
     userScore_span.innerHTML = userScore;
     compScore_span.innerHTML = compScore;
-    const smallUserWord = "user".fontsize(3).sub();
-    const smallCompWord = "comp".fontsize(3).sub();    
-    result_div.innerHTML = '${convertToWord(userChoice)}${smallUserWord} loses to ${convertToWord(compChoice)}${smallCompWord}. You win!';
+    result_div.innerHTML = `${convertToWord(userChoice)}${smallUserWord} loses to ${convertToWord(compChoice)}${smallCompWord}. You lose!`;
+    userChoice_div.classList.add('red-glow');
+    setTimeout(() => userChoice_div.classList.remove('red-glow'), 300);
 }
 
-function draw(userChoice, compChoice){
+//Handle draw scenario
+function draw(userChoice, compChoice) {
     const smallUserWord = "user".fontsize(3).sub();
-    const smallCompWord = "comp".fontsize(3).sub();    
-    result_div.innerHTML = '${convertToWord(userChoice)}${smallUserWord} draws against ${convertToWord(compChoice)}${smallCompWord}. You win!';
+    const smallCompWord = "comp".fontsize(3).sub();
+    const userChoice_div = document.getElementById(userChoice);
+    result_div.innerHTML = `${convertToWord(userChoice)}${smallUserWord} draws against ${convertToWord(compChoice)}${smallCompWord}. It's a draw.`;
+    userChoice_div.classList.add('gray-glow');
+    setTimeout(() => userChoice_div.classList.remove('gray-glow'), 300);
 }
 
-
-function game(userChoice){
+//Main game func. to determine outcome based on set of choices
+function game(userChoice) {
     const compChoice = getCompChoice();
-
-    switch(userChoice + compChoice){
+    switch (userChoice + compChoice) {
         case "rs":
         case "pr":
         case "sp":
-            win();
+            win(userChoice, compChoice);
             break;
-        
         case "rp":
         case "ps":
         case "sr":
-            lose();
+            lose(userChoice, compChoice);
             break;
-
         case "rr":
         case "pp":
         case "ss":
-            draw();
+            draw(userChoice, compChoice);
             break;
     }
 }
 
-
-function main(){
-    rock_div.addEventListener('click', function(){
-        game("r")
-    })
-    
-    paper_div.addEventListener('click', function(){
-        game("p")
-    })
-    
-    scissors_div.addEventListener('click', function(){
-        game("s")
-    })
+//Main func. to add event listeners to choice elements
+function main() {
+    rock_div.addEventListener('click', () => game("r"));
+    paper_div.addEventListener('click', () => game("p"));
+    scissors_div.addEventListener('click', () => game("s"));
 }
 
+//Initialize game
 main();

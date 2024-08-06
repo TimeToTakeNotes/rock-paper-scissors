@@ -15,21 +15,6 @@ header{
     padding: 20px;
 }
 
-.green-glow{
-    border: 4px solid rgb(7, 235, 7);
-    box-shadow: 0 0 10px rgb(4, 101, 4);
-}
-
-.red-glow{
-    border: 4px solid rgb(235, 22, 7);
-    box-shadow: 0 0 10px rgb(148, 7, 7);
-}
-
-.gray-glow{
-    border: 4px solid rgb(98, 88, 87);
-    box-shadow: 0 0 10px rgb(55, 52, 52);
-}
-
 header > h1{
     color: red;
     text-align: center;
@@ -111,4 +96,22 @@ header > h1{
     color: #fff;
     font-weight: bold;
     margin-top: 20px;
+}
+
+.green-glow{
+    background: rgb(7, 235, 7) !important;
+    border: 4px solid rgb(7, 235, 7);
+    box-shadow: 0 0 10px rgb(4, 101, 4);
+}
+
+.red-glow{
+    background: rgb(235, 22, 7) !important;
+    border: 4px solid rgb(235, 22, 7);
+    box-shadow: 0 0 10px rgb(148, 7, 7);
+}
+
+.gray-glow{
+    background: rgb(98, 88, 87) !important;
+    border: 4px solid rgb(98, 88, 87);
+    box-shadow: 0 0 10px rgb(55, 52, 52);
 }
